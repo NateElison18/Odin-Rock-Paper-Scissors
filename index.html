@@ -8,44 +8,97 @@
     </head>
     <body>
         <div id="headerContainer">
-            <h1>Rock, Paper, Scissors!</h1>
+            <h1 style="margin-bottom: 0px;">Rock, Paper, Scissors!</h1>
+            <h3 style="margin-top: 0px;">First to Five</h2>
             <div id="scoreContainer">
                 <div class="playerScore">
                     <h2>CPU:</h2>
-                    <h2>0</h2> 
+                    <h2 id="cpuScore">0</h2> 
                 </div>
 
                 <div class="playerScore">
                     <h2>You:</h2>
-                    <h2>0</h2> 
+                    <h2 id="yourScore">0</h2> 
                 </div>
             </div>
 
         </div>
         <div id="buttonContainer">
-            <div class="button">
+            <button class="button", id="rockBtn">
                 <img src="images/oncoming-fist-skin-2-emoji.svg" alt="emoji hand shaped like a fist">                
                 <h2>Rock</h2>
-            </div>
+            </button>
 
-            <div class="button">
+            <button class="button", id="paperBtn">
                 <img src="images/waving-hand-sign-tone-3.svg" alt="emoji hand shaped like a fist">                
                 <h2>Paper</h2>
-            </div>
+            </button>
 
-            <div class="button">
+            <button class="button", id="scissorsBtn">
                 <img id="scissorsImg" src="images/victory-hand-medium-light-skin-tone.svg" alt="emoji hand shaped like a fist">                
                 <h2>Scissors</h2>
-            </div>
+            </button>
         </div>
 
-
+        <div id="resultsContainer">
+            <h1 id="results"></h1>
+        </div>
 
         <script>
+            const rockBtn = document.querySelector("#rockBtn");
+            const paperBtn = document.querySelector("#paperBtn");
+            const scissorsBtn = document.querySelector("#scissorsBtn");
+            
+            const cpuScore = document.querySelector('#cpuScore');
+            const yourScore = document.querySelector('#yourScore');
 
-            game();
+            const results = document.querySelector('#results');
 
+            rockBtn.addEventListener('click', function() {
+                buttonAction("rock");
+            });
+
+            paperBtn.addEventListener('click', function() {
+                buttonAction("paper");
+            });
+
+            scissorsBtn.addEventListener('click', function() {
+                buttonAction("scissors");
+            });
+            
             //Functions:
+
+            function disableButtons() {
+                rockBtn.disabled = true;
+                paperBtn.disabled = true;
+                scissorsBtn.disabled = true;
+            }
+
+            function endGame(winner) {
+                console.log("indide end game fun");
+                if(winner === "player") {
+                    results.textContent = "Congrats! You won! Refresh the page to play again";
+                } else {
+                    results.textContent = "You lost :( Sorry. Refresh the page to play again";
+                }
+                disableButtons();
+            }
+
+            function buttonAction(choice) {
+                let result = playRound(choice, getComputerChoice);
+                results.textContent = result;
+                if(result.includes("Win")) {
+                    yourScore.textContent = parseInt(yourScore.textContent) + 1;
+                    if(yourScore.textContent == 5) {
+                        endGame("player");
+                    }
+                } else {
+                    cpuScore.textContent = parseInt(cpuScore.textContent) + 1;
+                    if(cpuScore.textContent == 5) {
+                        endGame("cpu");
+                    }
+                }
+            }
 
             // 1 = rock, 2 = paper, 3 = scissors
             function getComputerChoice() {
@@ -106,44 +159,6 @@
                 }
                 return result;
             }
-
-            function game() {
-                let userScore = 0;
-                let computerScore = 0;
-                let result = "";
-
-                for (let i = 0; i < 5; i++) {
-                    let computerSelection = getComputerChoice();
-                    let playerSelection = prompt("Rock, Paper, Scissors! What's your pick? ");
-
-                    result = playRound(playerSelection, computerSelection);
-                    console.log(result);
-
-                    if (result.includes("Win!")) {
-                        userScore++;
-                    } else {
-                        computerScore++;
-                    }
-
-                    if (i === 4 || computerScore >= 3 || userScore >= 3) // Break loop in loop 5 or after a player reaches 3 wins to not show final score twice in a row
-                        break;
-
-                    console.log("Scores:");
-                    console.log("User Score: " + userScore + " | Computer Score: " + computerScore);
-                }
-
-                if (userScore > computerScore) {
-                    console.log("You Win!! YAYAYAYAYA!!")
-                    console.log("Final Scores:");
-                    console.log("User Score: " + userScore + " | Computer Score: " + computerScore);
-                } else {
-                    console.log("You Lose :( Try again");
-                    console.log("Final Scores:");
-                    console.log("User Score: " + userScore + " | Computer Score: " + computerScore);
-                }  
-
-            }
-
         </script>
     </body>
 </html>
