@@ -4,8 +4,43 @@
     <head>
         <meta charset="UTF-8">
         <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <div id="headerContainer">
+            <h1>Rock, Paper, Scissors!</h1>
+            <div id="scoreContainer">
+                <div class="playerScore">
+                    <h2>CPU:</h2>
+                    <h2>0</h2> 
+                </div>
+
+                <div class="playerScore">
+                    <h2>You:</h2>
+                    <h2>0</h2> 
+                </div>
+            </div>
+
+        </div>
+        <div id="buttonContainer">
+            <div class="button">
+                <img src="images/oncoming-fist-skin-2-emoji.svg" alt="emoji hand shaped like a fist">                
+                <h2>Rock</h2>
+            </div>
+
+            <div class="button">
+                <img src="images/waving-hand-sign-tone-3.svg" alt="emoji hand shaped like a fist">                
+                <h2>Paper</h2>
+            </div>
+
+            <div class="button">
+                <img id="scissorsImg" src="images/victory-hand-medium-light-skin-tone.svg" alt="emoji hand shaped like a fist">                
+                <h2>Scissors</h2>
+            </div>
+        </div>
+
+
+
         <script>
 
             game();
